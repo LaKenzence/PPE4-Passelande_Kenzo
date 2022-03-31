@@ -87,7 +87,7 @@ public class SecondFragment extends Fragment {
                 mesparams[0]="1";
                 mesparams[1]=url;
                 mesparams[2]="GET";
-
+//btnok
 
 
                 mThreadCon = new Async ((MainActivity)getActivity());
