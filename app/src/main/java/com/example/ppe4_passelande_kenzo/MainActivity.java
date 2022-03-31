@@ -1,6 +1,7 @@
 package com.example.ppe4_passelande_kenzo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -34,9 +35,11 @@ import android.net.Uri;
 import androidx.core.app.ActivityCompat;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private List<String> listPermissionsNeeded;
     private boolean permissionOverlayAsked=false;
     private boolean permissionOverlay=false;
+    private string nom;
+    private string prenom;
+
 
 
     @Override
@@ -296,7 +302,34 @@ public class MainActivity extends AppCompatActivity {
     public void retourConnexion(StringBuilder sb)
 
     {
+
         alertmsg("retour Connexion", sb.toString());
+        try {
+            JSONException vJsonObject = new JSONException(sb.toString());
+            if(vJsonObject.has("status"))
+            {
+                alertmsg("Erreur connexion", "Identifiant ou mot de passe incorrect");
+            }
+            else
+            {
+                alertmsg("Connexion OK", "Identifiant ou mot de passe incorrect");
+                Navigation.findNavController(this , R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_troisiemeFragment);
+                menuConnect();
+                nom = vJsonObject.getSring("nom");
+                prenom = vJsonObject.getSring("prenom");
+
+                SharedPreferences myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
+                SharedPreferences.Editor prefsEditor = myPrefs.edit();
+                prefsEditor.putString("prefLogin", login);
+                prefsEditor.putInt("prefMdp", MD5.get.MD5(pass));
+                prefsEditor.commit();
+            }
+        }
+        catch(JSONException)
+        {
+            alertmsg("Erreur connexion", "Les données reçues sont dans un format incorrect.".concat(e.getMessage()));
+        }
+
     }
 
 }
