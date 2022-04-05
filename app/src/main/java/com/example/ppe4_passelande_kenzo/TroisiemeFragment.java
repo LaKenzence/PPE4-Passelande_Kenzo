@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TroisiemeFragment#newInstance} factory method to
@@ -26,6 +29,7 @@ public class TroisiemeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String connect;
+
 
     public TroisiemeFragment() {
         // Required empty public constructor
@@ -65,4 +69,19 @@ public class TroisiemeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_troisieme, container, false);
     }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView textViewPrenom = (TextView) getView().findViewById(R.id.textViewPrenom);
+        textViewPrenom.setText(((MainActivity)getActivity()).getprenom());
+
+        TextView textViewNom = (TextView) getView().findViewById(R.id.textViewNom);
+        textViewNom.setText(((MainActivity)getActivity()).getnom());
+
+
+
+
+    }
+
 }

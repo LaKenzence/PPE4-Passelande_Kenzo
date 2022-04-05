@@ -22,6 +22,7 @@ import com.example.ppe4_passelande_kenzo.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import android.Manifest;
@@ -40,6 +41,15 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,8 +65,23 @@ public class MainActivity extends AppCompatActivity {
     private List<String> listPermissionsNeeded;
     private boolean permissionOverlayAsked=false;
     private boolean permissionOverlay=false;
-    private string nom;
-    private string prenom;
+    private String nom;
+    private String prenom;
+    private String url;
+    private String[] mesparams;
+    private Async mThreadCon = null;
+    private String login;
+    private String pass;
+
+    public String getnom()
+    {
+        return this.nom;
+    }
+    public String getprenom()
+    {
+        return this.prenom;
+    }
+
 
 
 
@@ -241,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_connect:
                 Toast.makeText(getApplicationContext(), "click sur connect", Toast.LENGTH_SHORT).show();
 
-
                 boolean firstFragActive=(Navigation.findNavController(this,R.id.nav_host_fragment_content_main).getCurrentDestination().getId()==R.id.FirstFragment);
                 if (firstFragActive && permissionOK)
                 {
@@ -300,36 +324,72 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void retourConnexion(StringBuilder sb)
-
     {
 
         alertmsg("retour Connexion", sb.toString());
         try {
-            JSONException vJsonObject = new JSONException(sb.toString());
+            JSONObject vJsonObject = new JSONObject(sb.toString());
             if(vJsonObject.has("status"))
             {
                 alertmsg("Erreur connexion", "Identifiant ou mot de passe incorrect");
             }
             else
             {
-                alertmsg("Connexion OK", "Identifiant ou mot de passe incorrect");
+                alertmsg("Connexion OK", vJsonObject.getString("nom"));
                 Navigation.findNavController(this , R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_troisiemeFragment);
                 menuConnect();
-                nom = vJsonObject.getSring("nom");
-                prenom = vJsonObject.getSring("prenom");
+                nom = vJsonObject.getString("nom");
+                prenom = vJsonObject.getString("prenom");
 
                 SharedPreferences myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
                 SharedPreferences.Editor prefsEditor = myPrefs.edit();
                 prefsEditor.putString("prefLogin", login);
-                prefsEditor.putInt("prefMdp", MD5.get.MD5(pass));
+                prefsEditor.putString("prefMdp",MD5.getMd5(pass));
                 prefsEditor.commit();
             }
-        }
-        catch(JSONException)
-        {
+        } catch (JSONException e) {
             alertmsg("Erreur connexion", "Les données reçues sont dans un format incorrect.".concat(e.getMessage()));
         }
 
     }
+    public void testMotDePasse(String vlogin,String vmdp) {
+        try {
 
-}
+        this.login = vlogin;
+        this.pass = vmdp;
+
+        SharedPreferences  myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
+        String prefLog = myPrefs.getString("prefLogin","nothing");
+        String prefPass = myPrefs.getString("prefMdp", "nothing");
+        if(login.equals(prefLog) && MD5.getMd5(pass).equals(prefPass))
+        {
+            menuConnect();
+            alertmsg("Connexion", "Connecté en local.");
+            Navigation.findNavController(this , R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_troisiemeFragment);
+        }
+        else {
+            //url = "https://www.btssio-carcouet.fr/ppe4/public/connect2"+login.getText()+"/"+pass.getText()+"infirmiere" ;
+            url = "https://www.btssio-carcouet.fr/ppe4/public/connect2/"
+                    .concat(vlogin)
+                    .concat("/")
+                    .concat(vmdp)
+                    .concat("/")
+                    .concat("infirmiere");
+
+
+            mesparams = new String[3];
+            mesparams[0] = "1";
+            mesparams[1] = url;
+            mesparams[2] = "GET";
+
+
+            mThreadCon = new Async(this);
+            mThreadCon.execute(mesparams);
+        }
+            } catch (Exception e) {
+                alertmsg("Erreur", "Erreur ");
+            }
+        }
+    }
+
+
