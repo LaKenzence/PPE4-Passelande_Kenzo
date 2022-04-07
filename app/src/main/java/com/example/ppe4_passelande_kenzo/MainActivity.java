@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private Async mThreadCon = null;
     private String login;
     private String pass;
+    private Intent i;
 
     public String getnom()
     {
@@ -163,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), title.concat(" -->").concat(msg), Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     // Autorisation des alert Message
     public static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 5469;
@@ -282,9 +285,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "click sur list", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_import:
+                i = new Intent(getApplicationContext(), ActImport.class);
+
+                i.putExtra("permissionOverlay", permissionOverlay);
+                startActivity(i);
                 Toast.makeText(getApplicationContext(), "click sur import", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.menu_export:
+                case R.id.menu_export:
                 Toast.makeText(getApplicationContext(), "click sur export", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_deconnect:

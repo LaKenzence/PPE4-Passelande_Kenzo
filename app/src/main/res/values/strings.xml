@@ -24,5 +24,7 @@
     <string name="strIdentifiant" translatable="true">Identifiant</string>
     <string name="strPasswordHint" translatable="true">Password</string>
     <string name="etFragConnect">Utilisateur connecte</string>
+    <string name="bImport">Import</string>
+    <string name="Txt_Import">suppression de toutes les visites stockées sur le téléphone</string>
 
 </resources>

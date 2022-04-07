@@ -80,8 +80,8 @@ public class SecondFragment extends Fragment {
 
                login=(EditText)getView().findViewById(R.id.etFragId);
                 pass=(EditText)getView().findViewById(R.id.etFragPassword);
-
-                /*//url = "https://www.btssio-carcouet.fr/ppe4/public/connect2"+login.getText()+"/"+pass.getText()+"infirmiere" ;
+/*
+                url = "https://www.btssio-carcouet.fr/ppe4/public/connect2"+login.getText()+"/"+pass.getText()+"infirmiere" ;
                 url = "https://www.btssio-carcouet.fr/ppe4/public/connect2/"
                         .concat(login.getText().toString())
                         .concat("/")
@@ -100,8 +100,8 @@ public class SecondFragment extends Fragment {
 
 
                 mThreadCon = new Async ((MainActivity)getActivity());
-                mThreadCon.execute(mesparams);*/
-
+                mThreadCon.execute(mesparams);
+*/
                 ((MainActivity)getActivity()).testMotDePasse(login.getText().toString(), pass.getText().toString());
 
             }
