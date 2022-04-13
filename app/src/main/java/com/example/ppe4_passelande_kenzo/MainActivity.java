@@ -282,6 +282,10 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_list:
+                i = new Intent(getApplicationContext(), AfficheListeVisite.class);
+
+                i.putExtra("permissionOverlay", permissionOverlay);
+                startActivity(i);
                 Toast.makeText(getApplicationContext(), "click sur list", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_import:

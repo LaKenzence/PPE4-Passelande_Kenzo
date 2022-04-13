@@ -12,6 +12,14 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonParseException;
+import java.util.ArrayList;
+
 
 
 import com.example.ppe4_passelande_kenzo.databinding.FragmentSecondBinding;
@@ -22,7 +30,7 @@ public class ActImport extends AppCompatActivity {
     private String url;
     private String[] mesparams;
     private Async mthreadImp = null;
- private boolean permissionOverlayok;
+    private boolean permissionOverlayok;
 
 
     @Override
@@ -31,7 +39,7 @@ public class ActImport extends AppCompatActivity {
         setContentView(R.layout.activity_act_import);
         Bundle b = getIntent().getExtras();
         permissionOverlayok = b.getBoolean("permissionOverlay", false);
-        url = "http://www.btssio-carcouet.fr/ppe4/public/mesvisites/3";
+        url = "https://www.btssio-carcouet.fr/ppe4/public/mesvisites/3";
         //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
 
         mesparams=new String[3];
@@ -80,8 +88,29 @@ public class ActImport extends AppCompatActivity {
     }
     public void retourImport(StringBuilder sb)
     {
-        alertmsg("retour import",sb.toString());
+            //alertmsg("retour Connexion", sb.toString());
+            try {
+                Modele vmodel = new Modele(this);
+                JsonElement json = new JsonParser().parse(sb.toString());
+                JsonArray varray = json.getAsJsonArray();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                ArrayList<Visite> listeVisite = new ArrayList<Visite>();
+                for (JsonElement obj : varray) {
+                    Visite visite = gson.fromJson(obj.getAsJsonObject(), Visite.class);
+                    visite.setCompte_rendu_infirmiere("");
+                    visite.setDate_reelle(visite.getDate_prevue());
+                    listeVisite.add(visite);
+                }
+                vmodel.deleteVisite();
+                vmodel.addVisite(listeVisite);
+                alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
+                alertmsg("retour import",sb.toString());
+            }
+            catch (Exception e) {
+                alertmsg("Erreur retour import", e.getMessage());
+            }
+        }
     }
-}
+
 
 
