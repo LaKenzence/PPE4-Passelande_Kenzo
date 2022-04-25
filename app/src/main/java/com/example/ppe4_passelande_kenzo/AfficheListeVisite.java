@@ -2,6 +2,7 @@ package com.example.ppe4_passelande_kenzo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.ListView;
@@ -16,6 +17,7 @@ public class AfficheListeVisite extends AppCompatActivity {
     private List<Visite> listeVisite;
     private List<Patient> listePatient;
     private Modele vmodele;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class AfficheListeVisite extends AppCompatActivity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                i = new Intent (getApplicationContext(), AfficheVisite.class);
+                startActivity(i);
                 Toast.makeText(getApplicationContext(),"Choix : "+listeVisite.get(position).getId(), Toast.LENGTH_LONG).show();
             }
         });

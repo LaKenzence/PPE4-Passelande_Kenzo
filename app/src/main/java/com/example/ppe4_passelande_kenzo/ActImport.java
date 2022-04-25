@@ -134,14 +134,21 @@ public class ActImport extends AppCompatActivity {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 ArrayList<Visite> listeVisite = new ArrayList<Visite>();
                 ArrayList<Integer> lesPatients = new ArrayList<Integer>();
+                vmodel.deletePatient();
+                vmodel.deleteVisite();
+                vmodel.deleteVisiteSoin();
                 for (JsonElement obj : varray) {
                     Visite visite = gson.fromJson(obj.getAsJsonObject(), Visite.class);
                     visite.setCompte_rendu_infirmiere("");
                     visite.setDate_reelle(visite.getDate_prevue());
                     Integer p = visite.getPatient();
                     Integer v = visite.getId();
-                    lesPatients.add(p);
+                    if(!lesPatients.contains(p)) {
+                        lesPatients.add(p);
+                    }
                     listeVisite.add(visite);
+
+                }
 
                    /* urlP = "https://www.btssio-carcouet.fr/ppe4/public/personne/".concat(p.toString());
                     //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
@@ -174,9 +181,43 @@ public class ActImport extends AppCompatActivity {
                     mthreadImpP.execute(mesparamsP);
                     mthreadImpP.execute(mesparamsP);
                     mthreadImpP.execute(mesparamsP);*/
-                }
-                vmodel.deleteVisite();
+
                 vmodel.addVisite(listeVisite);
+                for (Integer lint:lesPatients
+                ) {
+                    String urlImpPatient = "https://www.btssio-carcouet.fr/ppe4/public/personne/"
+                            .concat(lint.toString());
+                    mesparamsP = new String[3];
+                    mesparamsP[0] = "3";
+                    mesparamsP[1] = urlImpPatient;
+                    mesparamsP[2] = "GET";
+                    mthreadImpP = new Async(this);
+                    mthreadImpP .execute(mesparamsP);
+                }
+                for (Visite v:listeVisite
+                ) {
+                    String urlImpVisiteSoins = "https://www.btssio-carcouet.fr/ppe4/public/visitesoins/"
+                            .concat(String.valueOf(v.getId()));
+                    mesparamsVS = new String[3];
+                    mesparamsVS[0] = "4";
+                    mesparamsVS[1] = urlImpVisiteSoins;
+                    mesparamsVS[2] = "GET";
+                    mthreadImpVS = new Async(this);
+                    mthreadImpVS .execute(mesparamsVS);
+                }
+                if(vmodel.listeSoin().size() == 0) {
+                    String urlImpSoins = "https://www.btssio-carcouet.fr/ppe4/public/soins/";
+                    mesparamsS = new String[3];
+                    mesparamsS[0] = "5";
+                    mesparamsS[1] = urlImpSoins;
+                    mesparamsS[2] = "GET";
+                    mthreadImpS = new Async(this);
+                    mthreadImpS.execute(mesparamsS);
+                }
+                //mThreadImpPatients.execute(mesparamsP);
+                //mThreadImpPatients.execute(mesparamsVS);
+                //mThreadImpPatients.execute(mesparamsS);
+
                 alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
                 alertmsg("retour import",sb.toString());
             }
@@ -184,6 +225,7 @@ public class ActImport extends AppCompatActivity {
                 alertmsg("Erreur retour import", e.getMessage());
             }
         }
+
         public void retourImportPatient (StringBuilder sb)
         {
 
@@ -199,8 +241,8 @@ public class ActImport extends AppCompatActivity {
                 }
                 vmodel.deletePatient();
                 vmodel.addPatient(listePatient);
-                alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
-                alertmsg("retour import",sb.toString());
+               // alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
+                //alertmsg("retour import",sb.toString());
             }
             catch (JsonParseException e) {
                 Log.d("Patient", "erreur json" + e.getMessage());
@@ -222,8 +264,8 @@ public class ActImport extends AppCompatActivity {
             }
             vmodel.deleteVisiteSoin();
             vmodel.addVisiteSoin(listeVisiteSoin);
-            alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
-            alertmsg("retour import",sb.toString());
+            //alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
+            //alertmsg("retour import",sb.toString());
         }
         catch (JsonParseException e) {
             Log.d("Patient", "erreur json" + e.getMessage());
@@ -245,8 +287,8 @@ public class ActImport extends AppCompatActivity {
             }
             vmodel.deleteSoin();
             vmodel.addSoin(listeSoin);
-            alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
-            alertmsg("retour import",sb.toString());
+            //alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
+            //alertmsg("retour import",sb.toString());
         }
         catch (JsonParseException e) {
             Log.d("Patient", "erreur json" + e.getMessage());

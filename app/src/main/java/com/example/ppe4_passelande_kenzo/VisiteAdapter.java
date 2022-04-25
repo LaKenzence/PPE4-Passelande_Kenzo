@@ -73,6 +73,7 @@ public class VisiteAdapter extends android.widget.BaseAdapter {
         }
         /*****Affichage des propriétés dans la ligne de la listView ****/
         holder.textViewVisite.setText("Visite ID : " + listVisite.get(position).getId() + ", ");
+        //holder.textViewPatient.setText("Avec le patient : " + Patient.getPrenom() + Patient.getNom());
         holder.textViewPatient.setText("Avec le patient : " + listVisite.get(position).getId() + ", ");
         holder.textViewDate.setText("Date :"+ df.format("dd/MM/yyyy",listVisite.get(position).getDate_reelle()).toString().concat(" à ").concat(df.format("HH:mm",listVisite.get(position).getDate_reelle()).toString()));
         holder.textViewDuree.setText("Durée : "+listVisite.get(position).getDuree()+" min");
