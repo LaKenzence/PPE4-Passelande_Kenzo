@@ -54,6 +54,15 @@ import org.json.JSONObject;
                     if (numAppel==2) {
                         ((ActImport) activityAppelante.get()).retourImport(stringBuilder);
                     }
+                    if (numAppel==3) {
+                        ((ActImport) activityAppelante.get()).retourImportPatient(stringBuilder);
+                    }
+                    if (numAppel==4) {
+                        ((ActImport) activityAppelante.get()).retourImportVisiteSoin(stringBuilder);
+                    }
+                    if (numAppel==5) {
+                        ((ActImport) activityAppelante.get()).retourImportSoin(stringBuilder);
+                    }
                 } else
                     Toast.makeText(activityAppelante.get(), "Fin ko",
                             Toast.LENGTH_SHORT).show();

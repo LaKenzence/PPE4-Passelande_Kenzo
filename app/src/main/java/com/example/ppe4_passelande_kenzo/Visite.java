@@ -4,7 +4,6 @@ import java.util.Date;
 public class Visite {
 
 
-
     /*
      * Données ne pouvant être modifiées
      */

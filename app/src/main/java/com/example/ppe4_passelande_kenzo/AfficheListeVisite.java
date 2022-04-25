@@ -14,16 +14,19 @@ import java.util.List;
 public class AfficheListeVisite extends AppCompatActivity {
     private ListView listView;
     private List<Visite> listeVisite;
+    private List<Patient> listePatient;
     private Modele vmodele;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affiche_liste_visite);
+
         vmodele=new Modele(this);
         listeVisite = vmodele.listeVisite();
+        listePatient = vmodele.listePatient();
         listView = (ListView)findViewById(R.id.lvListe);
-        VisiteAdapter visiteAdapter = new VisiteAdapter(this, listeVisite);
+        VisiteAdapter visiteAdapter = new VisiteAdapter(this, listeVisite, listePatient);
         listView.setAdapter(visiteAdapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {

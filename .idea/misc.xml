@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Kenzo/Desktop/PPE4-Passelande_Kenzo/app/src/main/res/layout/activity_act_import.xml" value="0.1213768115942029" />
         <entry key="..\:/Users/Kenzo/Desktop/PPE4-Passelande_Kenzo/app/src/main/res/layout/activity_affiche_liste_visite.xml" value="0.1" />
+        <entry key="..\:/Users/Kenzo/Desktop/PPE4-Passelande_Kenzo/app/src/main/res/layout/activity_affiche_visite.xml" value="0.33" />
         <entry key="..\:/Users/Kenzo/Desktop/PPE4-Passelande_Kenzo/app/src/main/res/layout/vuevisite.xml" value="0.22" />
       </map>
     </option>
