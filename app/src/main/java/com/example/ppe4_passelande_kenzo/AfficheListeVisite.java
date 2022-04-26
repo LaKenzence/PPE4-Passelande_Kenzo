@@ -15,7 +15,7 @@ import java.util.List;
 public class AfficheListeVisite extends AppCompatActivity {
     private ListView listView;
     private List<Visite> listeVisite;
-    private List<Patient> listePatient;
+
     private Modele vmodele;
     private Intent i;
 
@@ -26,15 +26,15 @@ public class AfficheListeVisite extends AppCompatActivity {
 
         vmodele=new Modele(this);
         listeVisite = vmodele.listeVisite();
-        listePatient = vmodele.listePatient();
         listView = (ListView)findViewById(R.id.lvListe);
-        VisiteAdapter visiteAdapter = new VisiteAdapter(this, listeVisite, listePatient);
+        VisiteAdapter visiteAdapter = new VisiteAdapter(this, listeVisite);
         listView.setAdapter(visiteAdapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 i = new Intent (getApplicationContext(), AfficheVisite.class);
+                i.putExtra("idVisite", listeVisite.get(position).getId());
                 startActivity(i);
                 Toast.makeText(getApplicationContext(),"Choix : "+listeVisite.get(position).getId(), Toast.LENGTH_LONG).show();
             }

@@ -150,38 +150,6 @@ public class ActImport extends AppCompatActivity {
 
                 }
 
-                   /* urlP = "https://www.btssio-carcouet.fr/ppe4/public/personne/".concat(p.toString());
-                    //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
-
-                    mesparamsP=new String[3];
-                    mesparamsP[0]="3";
-                    mesparamsP[1]=url;
-                    mesparamsP[2]="GET";
-                    mthreadImpP = new Async (this);
-
-
-                    urlVS = "https://www.btssio-carcouet.fr/ppe4/public/visitesoins/".concat(v.toString());
-                    //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
-
-                    mesparams=new String[3];
-                    mesparamsVS[0]="4";
-                    mesparamsVS[1]=url;
-                    mesparamsVS[2]="GET";
-                    mthreadImpVS = new Async (this);
-
-                    urlS = "https://www.btssio-carcouet.fr/ppe4/public/soins/";
-                    //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
-
-                    mesparamsS=new String[3];
-                    mesparamsS[0]="5";
-                    mesparamsS[1]=url;
-                    mesparamsS[2]="GET";
-                    mthreadImpS = new Async (this);
-
-                    mthreadImpP.execute(mesparamsP);
-                    mthreadImpP.execute(mesparamsP);
-                    mthreadImpP.execute(mesparamsP);*/
-
                 vmodel.addVisite(listeVisite);
                 for (Integer lint:lesPatients
                 ) {
@@ -239,7 +207,7 @@ public class ActImport extends AppCompatActivity {
                     Patient unpatient = gson.fromJson(obj.getAsJsonObject(), Patient.class);
                     listePatient.add(unpatient);
                 }
-                vmodel.deletePatient();
+
                 vmodel.addPatient(listePatient);
                // alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
                 //alertmsg("retour import",sb.toString());
@@ -262,7 +230,7 @@ public class ActImport extends AppCompatActivity {
                 VisiteSoin uneVisiteSoin = gson.fromJson(obj.getAsJsonObject(), VisiteSoin.class);
                 listeVisiteSoin.add(uneVisiteSoin);
             }
-            vmodel.deleteVisiteSoin();
+
             vmodel.addVisiteSoin(listeVisiteSoin);
             //alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
             //alertmsg("retour import",sb.toString());
@@ -285,7 +253,7 @@ public class ActImport extends AppCompatActivity {
                 Soin unSoin = gson.fromJson(obj.getAsJsonObject(), Soin.class);
                 listeSoin.add(unSoin);
             }
-            vmodel.deleteSoin();
+
             vmodel.addSoin(listeSoin);
             //alertmsg("Retour", "Vos informations ont bien été importé avec succès !");
             //alertmsg("retour import",sb.toString());

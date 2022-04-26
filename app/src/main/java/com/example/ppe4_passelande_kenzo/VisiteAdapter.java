@@ -18,12 +18,14 @@ public class VisiteAdapter extends android.widget.BaseAdapter {
     private List<Patient> listPatient;
     private LayoutInflater layoutInflater; //Cet attribut a pour mission de charger notre fichier XML de la vue pour l'item.
     private DateFormat df = new DateFormat();
+    private Context ct;
+    private Modele modele;
 
-    public VisiteAdapter(Context context, List<Visite> vListVisite, List<Patient> vListPatient) {
+    public VisiteAdapter(Context context, List<Visite> vListVisite) {
         super();
         layoutInflater = LayoutInflater.from(context);
         listVisite = vListVisite;
-        listPatient = vListPatient;
+        ct = context ;
     }
     @Override
     public int getCount() {
@@ -73,8 +75,10 @@ public class VisiteAdapter extends android.widget.BaseAdapter {
         }
         /*****Affichage des propriétés dans la ligne de la listView ****/
         holder.textViewVisite.setText("Visite ID : " + listVisite.get(position).getId() + ", ");
-        //holder.textViewPatient.setText("Avec le patient : " + Patient.getPrenom() + Patient.getNom());
-        holder.textViewPatient.setText("Avec le patient : " + listVisite.get(position).getId() + ", ");
+        modele = new Modele(ct);
+        Patient patient = modele.trouvePatient( listVisite.get(position).getPatient());
+        holder.textViewPatient.setText("Avec le patient : " + patient.getPrenom() +" "+ patient.getNom() +", ");
+        //holder.textViewPatient.setText("Avec le patient : " + listVisite.get(position).getId() + ", ");
         holder.textViewDate.setText("Date :"+ df.format("dd/MM/yyyy",listVisite.get(position).getDate_reelle()).toString().concat(" à ").concat(df.format("HH:mm",listVisite.get(position).getDate_reelle()).toString()));
         holder.textViewDuree.setText("Durée : "+listVisite.get(position).getDuree()+" min");
 
