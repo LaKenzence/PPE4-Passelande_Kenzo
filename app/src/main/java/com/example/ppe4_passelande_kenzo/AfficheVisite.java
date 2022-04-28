@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,12 @@ public class AfficheVisite extends AppCompatActivity {
        Numfixe.setText("Fixe" + String.valueOf(patient.getTel_fixe()));
        VisiteDate.setText(df.format("dd/MM/yyyy",laVisite.getDate_prevue()));
 
+       if(laVisite.getCompte_rendu_infirmiere() != "")
+       {
+           TextView vvisitecommentaire = (TextView)findViewById(R.id.visitecommentaire);
+           vvisitecommentaire.setText(laVisite.getCompte_rendu_infirmiere());
+       }
+
 
 
         Button bsauv = (Button) findViewById(R.id.visitesave);
@@ -112,6 +119,14 @@ public class AfficheVisite extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        listeSoin = modele.trouveSoinsUneVisite(laVisite.getId());
+        Log.d("Soins", "trouveSoinsUneVisite" + String.valueOf(listeSoin.size()));
+        listView = (ListView)findViewById(R.id.lvListeSoins);
+
+        SoinAdapter soinAdapter = new SoinAdapter(this, listeSoin);
+        listView.setAdapter(soinAdapter);
+
 
 
     }
