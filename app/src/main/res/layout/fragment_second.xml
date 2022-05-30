@@ -84,6 +84,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/TxtDateHeure"
+        android:layout_width="266dp"
+        android:layout_height="19dp"
+        android:text="@string/TxtDateheure"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.651"
+        tools:layout_editor_absoluteX="88dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.Manifest;
@@ -363,6 +364,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public String affichelog()
+    {
+        SharedPreferences  myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
+        String prefLog = myPrefs.getString("prefLogin","nothing");
+        return prefLog;
+        /*
+        if (! prefLog.equals("nothing")) {
+            TextView log = (TextView) getView().findViewById(R.id.etFragId);
+            log.setText(((MainActivity) getActivity()).getprenom());
+        }*/
+    }
     public void testMotDePasse(String vlogin,String vmdp) {
         try {
 
@@ -376,6 +388,7 @@ public class MainActivity extends AppCompatActivity {
         {
             menuConnect();
             alertmsg("Connexion", "Connecté en local.");
+
             Navigation.findNavController(this , R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_troisiemeFragment);
         }
         else {

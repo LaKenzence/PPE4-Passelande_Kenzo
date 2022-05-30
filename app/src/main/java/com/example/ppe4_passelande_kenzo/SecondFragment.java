@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.ppe4_passelande_kenzo.databinding.FragmentSecondBinding;
+import java.util.Calendar;
+import java.util.Date;
+import android.content.SharedPreferences;
 
 public class SecondFragment extends Fragment {
 
@@ -34,6 +38,8 @@ public class SecondFragment extends Fragment {
         return this.pass.toString();
     }
 
+    private Calendar myCalendar = Calendar.getInstance();
+    private EditText dateconnexion;
 
 
 
@@ -46,9 +52,23 @@ public class SecondFragment extends Fragment {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
+       // affichelog1();
+
+        //TxtDateHeure =
 
 
-
+       /* dateconnexion.setText(df.format("dd/MM/yyyy", dateconnexion);
+        String s = f.format(d);
+        if(laVisite.getDate_reelle().toString().length()==0)
+        {
+            ddatereelle = new Date();
+        }
+        else
+        {
+            ddatereelle=laVisite.getDate_reelle();
+        }
+        datereelle.setText(df.format("dd/MM/yyyy", ddatereelle));
+    }*/
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -70,16 +90,18 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
-
+        affichelog1();
  binding.bFragOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
 
+            login = (EditText) getView().findViewById(R.id.etFragId);
+            pass = (EditText) getView().findViewById(R.id.etFragPassword);
 
-               login=(EditText)getView().findViewById(R.id.etFragId);
-                pass=(EditText)getView().findViewById(R.id.etFragPassword);
+
+
 /*
                 url = "https://www.btssio-carcouet.fr/ppe4/public/connect2"+login.getText()+"/"+pass.getText()+"infirmiere" ;
                 url = "https://www.btssio-carcouet.fr/ppe4/public/connect2/"
@@ -121,6 +143,15 @@ public class SecondFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void affichelog1()
+    {
+    String login=((MainActivity)getActivity()).affichelog();
+        if (! login.equals("nothing")) {
+            TextView log = (TextView) getView().findViewById(R.id.etFragId);
+            log.setText(login);
+        }
     }
 
 }
