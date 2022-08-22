@@ -8,10 +8,6 @@ import java.util.List;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.text.format.DateFormat;
-import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class VisiteAdapter extends android.widget.BaseAdapter {
     private List<Visite> listVisite;
@@ -61,7 +57,7 @@ public class VisiteAdapter extends android.widget.BaseAdapter {
             holder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.vuevisite, null);
             holder.textViewVisite = (TextView) convertView.findViewById(R.id.vuevisite);
-            holder.textViewPatient = (TextView) convertView.findViewById(R.id.vuepatient);
+            holder.textViewPatient = (TextView) convertView.findViewById(R.id.vuesoinslibel);
             holder.textViewDate = (TextView) convertView.findViewById(R.id.vuedateprevue);
             holder.textViewDuree = (TextView) convertView.findViewById(R.id.vueduree);
             convertView.setTag(holder);
